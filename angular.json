@@ -28,9 +28,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/vendor/bootstrap/css/bootstrap.min.css",
+              "src/assets/css/orionicons.css",
+              "src/assets/css/custom.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/vendor/jquery/jquery.min.js",
+              "src/assets/vendor/popper.js/umd/popper.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.min.js",
+              "src/assets/vendor/jquery.cookie/jquery.cookie.js",
+              "src/assets/vendor/chart.js/Chart.min.js",
+              "src/assets/js/front.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,0 +1,489 @@
+<div class="container-fluid px-xl-5" >
+  <div class="container" style="margin-top: 5%;">
+
+    <div class="col-lg-4 offset-lg-4" *ngIf="!loadPage">
+      <img src="assets/img/loading.gif" style="width: 100%">
+    </div>
+
+
+    <div class="card mb-3 " *ngIf="loadPage">
+      <div class="row g-0">
+        <div class="col-lg-4 " style="display: flex; align-items: center; flex-wrap: wrap;">
+          <button style="color: transparent; border: none; background-color: transparent" class="mx-auto"
+                  data-toggle="modal" data-target="#modalUpPhoto"
+          >
+            <img src="{{userProfile.img}}" style="width: 250px; max-height: 250px;" class="img-fluid rounded-circle mx-auto " alt="{{userProfile.name}}">
+          </button>
+          <!-- Modal update intro -->
+          <div class="modal fade" id="modalUpPhoto" tabindex="-1" role="dialog" aria-labelledby="modalUpPhotoLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalUpPhotoLongTitle">Photo de profil</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" >
+                  <div class="row" style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <img src="{{img}}" style="width: 250px; max-height: 250px;" class="img-fluid rounded-circle mx-auto " alt="{{userProfile.name}}">
+                  </div>
+                  <hr>
+                  <div class="row" style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <label for="fileimg" class="btn btn-outline-dark mx-auto"><i class="fas fa-plus"></i> Importer une photo
+                      <input type="file" name="file" id="fileimg" style="display: none;"
+                             accept="image/*" #imageInput (change)="loadImage($event)">
+                    </label>
+                  </div>
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary rounded"
+                          data-dismiss="modal"
+                          (click)="UploadImage()"
+                  >Enregistrer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-8">
+          <div class="card-body text-left">
+            <h4 class="card-title font-weight-bold">{{userProfile.name?.toUpperCase() }}
+              <span class="float-lg-right"><button data-toggle="modal" data-target="#modalUpPr" class="btn btn-outline-dark btn-sm rounded-circle " > <i class="fas fa-pen"></i></button></span>
+            </h4>
+            <h5> {{userProfile.title}}</h5>
+
+            <p class="card-text">{{userProfile.bio}}</p>
+
+
+            <!-- Modal update intro -->
+            <div class="modal fade" id="modalUpPr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier l’introduction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+
+                    <form>
+                      <div class="form-group">
+                        <label for="name" >Nom et Prénom <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name"
+                               placeholder="Nom et Prénom" required=""
+                               name="name" [(ngModel)]="userProfile.name"
+                        >
+                      </div>
+                      <div class="form-group">
+                        <label for="title" >Titre du profil  <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title"
+                               placeholder="Titre du profil "
+                               required=""
+                               name="title" [(ngModel)]="userProfile.title"
+                        >
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="desctiption">Résumé</label>
+                        <textarea class="form-control" id="desctiption"  rows="3" name="bio" [(ngModel)]="userProfile.bio"></textarea>
+                      </div>
+                    </form>
+
+
+
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="updateUser()"
+                    >Enregistrer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  <div class="container " *ngIf="loadPage" >
+    <div class="row">
+      <div class="col-lg-8" style="margin-bottom: 10%">
+        <div id="headings" class="card " >
+          <div class="card-header"><b>Expérience</b>
+
+            <span class="float-right">
+            <button class="btn btn-sm btn-outline-dark rounded-circle" data-toggle="modal" data-target="#modalAddEx">
+              <i class="fas fa-plus"></i>
+            </button>
+              <!-- Modal add exp-->
+            <div class="modal fade" id="modalAddEx" tabindex="-1" role="dialog" aria-labelledby="modalAddExLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddExLongTitle">Expérience</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+
+                    <form>
+                      <div class="form-group">
+                        <label for="name" >Intitulé du poste <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="poste"
+                               placeholder="Intitulé du poste" required=""
+                               name="poste" [(ngModel)]="newExperience.poste"
+                        >
+                      </div>
+
+                      <div class="form-group">
+                        <label for="etablissement" >Entreprise <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="etablissement"
+                               placeholder="Entreprise" required=""
+                               name="etablissement" [(ngModel)]="newExperience.etablissement"
+                        >
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="dtd">Date de début <span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="dtd" placeholder="Date de début"
+                                 [(ngModel)]="newExperience.startDate" name="start_date"
+                          >
+                        </div>
+                       <div class="form-group col-md-6">
+                          <label for="dtf">Date de fin <span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="dtf" placeholder="Date de fin"
+                                 [(ngModel)]="newExperience.endDate" name="end_date"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="edesctiption">Description</label>
+                        <textarea class="form-control" id="edesctiption"
+                                  rows="3"
+                                  name="description" [(ngModel)]="newExperience.description"></textarea>
+                      </div>
+                    </form>
+
+
+
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="addExperience()"
+                    >Enregistrer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </span>
+
+          </div>
+          <div class="card-body" >
+            <div *ngFor="let experience of userProfile.experiences">
+              <div>
+                <h5>{{experience.poste}}
+                  <span class="float-right">
+                    <button class="btn btn-sm btn-outline-dark rounded-circle"
+                            (click)="loadUpEx(experience)"
+                            data-toggle="modal" data-target="#modalUpEx">
+                      <i class="fas fa-pen"></i>
+                    </button>
+                  </span>
+                </h5>
+                <h6>{{experience.etablissement}}</h6>
+                <p class="text-muted">{{experience.startDate | date:'MMM, y' }} - {{experience.endDate | date:'MMM, y' }}</p>
+                <p class="text-base">
+                  {{experience.description}}
+                </p>
+                <hr>
+              </div>
+            </div>
+
+            <!-- Modal up ex-->
+            <div class="modal fade" id="modalUpEx" tabindex="-1" role="dialog" aria-labelledby="modalUpExLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalUpExLongTitle">Expérience</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+
+                    <form>
+                      <div class="form-group">
+                        <label for="upposte" >Intitulé du poste <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="upposte"
+                               placeholder="Intitulé du poste" required=""
+                               name="poste" [(ngModel)]="upExperience.poste"
+                        >
+                      </div>
+
+                      <div class="form-group">
+                        <label for="upetablissement" >Entreprise <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="upetablissement"
+                               placeholder="Entreprise" required=""
+                               name="etablissement" [(ngModel)]="upExperience.etablissement"
+                        >
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="updtd">Date de début <span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="updtd" placeholder="Date de début"
+                                 [(ngModel)]="upExperience.startDate" name="start_date"
+                          >
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="updtf">Date de fin <span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="updtf" placeholder="Date de fin"
+                                 [(ngModel)]="upExperience.endDate" name="end_date"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="upedesctiption">Description</label>
+                        <textarea class="form-control" id="upedesctiption"
+                                  rows="3"
+                                  name="description" [(ngModel)]="upExperience.description"></textarea>
+                      </div>
+                    </form>
+
+
+
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary rounded "
+                             style="margin-right: 73%; position: absolute"
+                             data-toggle="modal" data-target="#modalrmEx"
+                            data-dismiss="modal"
+                    >Supprimer</button>
+
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="updateExperience()"
+                    >Enregistrer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Modal rm ex-->
+            <div class="modal fade" id="modalrmEx" tabindex="-1" role="dialog" aria-labelledby="modalrmExLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalrmExLongTitle">Supprimer l’expérience</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+
+                   <p>
+                     Voulez-vous vraiment supprimer ce poste de {{upExperience.poste}} chez {{upExperience.etablissement}} ?
+                   </p>
+
+
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary rounded"
+                            data-dismiss="modal"
+                    >Annuler</button>
+
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="RemoveExperience()"
+                    >Supprimer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" style="margin-bottom: 10%">
+        <div  class="card mb-4">
+          <div class="card-header"><b>Compétences</b>
+            <span class="float-right" style="margin-left:3%" >
+            <button class="btn btn-sm btn-outline-dark rounded-circle"
+                    data-toggle="modal" data-target="#modalUpsk"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+          </span>
+            <span class="float-right">
+            <button class="btn btn-sm btn-outline-dark rounded-circle"
+                    data-toggle="modal" data-target="#modalAddsk"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
+          </span>
+
+            <!-- Modal Add skills -->
+            <div class="modal fade" id="modalAddsk" tabindex="-1" role="dialog" aria-labelledby="modalAddskLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddskLongTitle">Ajouter des compétences</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                      <form >
+
+                        <input type="text" class="form-control"
+                               placeholder="Compétence (ex : analyses de données)" required=""
+                               (keyup)="filterSkills($event)" [(ngModel)]="keyword" name="keyword"
+                               autocomplete="off"
+                        >
+                        <div class="list-group list-grouph" *ngIf="filtredSkills.length > 0">
+                          <button type="button" class="list-group-item list-group-item-action " *ngFor="let s of filtredSkills"
+                              (click)="addSkills(s)"
+                          >
+                            {{s.name}}
+                          </button>
+                        </div>
+
+                        <button (click)="removeFromList(sk)" *ngFor="let sk of addedSkills"
+                                class="btn btn-sm btn-success rounded" style="margin: 2%; margin-left: 0%"
+                                type="button"
+                        >
+                          {{sk.name}} <i class="fas fa-check"></i>
+                        </button>
+
+
+
+
+
+                      </form>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="addskillstoProfile()"
+                    >Ajouter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Modal update skills -->
+            <div class="modal fade" id="modalUpsk" tabindex="-1" role="dialog" aria-labelledby="modalUpskLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalUpskLongTitle">Modifier l’introduction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let sk of userProfile.skills"
+                      >
+                        {{sk.name}}
+                        <button class="btn btn-sm btn-outline-dark rounded-circle float-right"
+                        (click)="loadSkills(sk)" data-toggle="modal" data-target="#modalRmsk" data-dismiss="modal"
+                        ><i class="fas fa-trash"></i></button>
+                      </li>
+
+                    </ul>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal rm ex-->
+            <div class="modal fade" id="modalRmsk" tabindex="-1" role="dialog" aria-labelledby="modalRmskLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalRmskLongTitle">Supprimer Compétence</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      Voulez-vous vraiment supprimer ce compétence <b>{{loadedskills.name}}</b> ?
+                    </p>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary rounded"
+                            data-dismiss="modal"
+                    >Annuler</button>
+
+                    <button type="button" class="btn btn-primary rounded"
+                            data-dismiss="modal"
+                            (click)="RemoveSkills()"
+                    >Supprimer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="card-body">
+
+            <div *ngFor="let sk of userProfile.skills">
+              <p class="font-weight-bold">{{sk.name}}</p>
+              <hr>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
