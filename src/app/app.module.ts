@@ -34,7 +34,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     AngularFireModule.initializeApp(environment.configFrireStore),
     AngularFireStorageModule,
-    BrowserAnimationsModule, // required animations module
+    BrowserAnimationsModule,
     ToastrModule.forRoot({ timeOut: 4000,
                                   progressAnimation: 'decreasing',
                                   progressBar: true})

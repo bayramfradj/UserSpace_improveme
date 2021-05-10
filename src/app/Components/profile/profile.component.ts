@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
    allSkills: Skills[] = [];
    filtredSkills: Skills[] = [];
    addedSkills: Skills[] = [];
-   loadPage = true;
+   loadPage = false;
 
   constructor(private prService: ProfileService, private auth: AuthService,
               private skService: SkillsService, private toastr: ToastrService,
@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.loadProfile();
     this.skService.getAll().subscribe(value => {
       this.allSkills = value;
@@ -69,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this.loadPage = false;
     this.prService.upProfile(this.userProfile).subscribe(value => {
       console.log('success :', value);
-      this.toastr.success( 'Profile Modifié avec succès' , 'SUCCÈS' );
+      this.toastr.success( 'Profil Modifié avec succès' , 'SUCCÈS' );
       this.loadPage = true;
     }, error => {
       this.toastr.error('Réessayer Ultérieurement', 'ERREUR');
@@ -83,7 +84,7 @@ export class ProfileComponent implements OnInit {
       this.prService.addExperience(this.newExperience, this.userProfile.id).subscribe(value => {
         console.log('experience added :', value);
         this.newExperience = new Experience();
-        this.toastr.success( 'Experience ajouté avec succès' , 'SUCCÈS' );
+        this.toastr.success( 'Experience ajoutée avec succès' , 'SUCCÈS' );
         this.loadProfile();
       },
       error => {
@@ -116,7 +117,6 @@ export class ProfileComponent implements OnInit {
     if (this.upExperience.id != null) {
       this.prService.RemoveExperience(this.upExperience.id).subscribe(
         value => {
-          console.log('sucess remove', value);
           this.loadProfile();
         },
         error => {
@@ -176,7 +176,7 @@ export class ProfileComponent implements OnInit {
         console.log('result add skills', value);
         this.userProfile = value;
         this.addedSkills = [];
-        this.toastr.success( 'Compétence Modifié avec succès' , 'SUCCÈS' );
+        this.toastr.success( 'Compétence Modifiée avec succès' , 'SUCCÈS' );
       }, error => {
         this.toastr.error('Réessayer Ultérieurement', 'ERREUR');
 
