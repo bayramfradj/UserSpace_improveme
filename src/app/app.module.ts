@@ -17,6 +17,9 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {FormsModule} from '@angular/forms';
+import { AllByUserComponent } from './Components/Mission/all-by-user/all-by-user.component';
+import { AllCandidaturesByUserComponent } from './Components/Mission/all-candidatures-by-user/all-candidatures-by-user.component';
+import { ChatComponent } from './Components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import {FormsModule} from '@angular/forms';
     HomeComponent,
     SidebarComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    AllByUserComponent,
+    AllCandidaturesByUserComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

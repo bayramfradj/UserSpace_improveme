@@ -45,24 +45,8 @@ export class ProfileComponent implements OnInit {
     this.prService.getProfile(this.auth.getLoggedUser()?.sub).toPromise().then(value => {
       console.log('user profile', value);
       this.userProfile = value;
-      this.img = this.userProfile.img || 'assets/img/avatar-2.jpg';
+      this.img = this.userProfile.img ;
       this.loadPage = true;
-    }).catch( reason => {
-      console.log('erreur : ', reason);
-      this.auth.getUserProfile().then(data => {
-        this.userProfile.userId = this.auth.getLoggedUser()?.sub;
-        this.userProfile.name = data.firstName;
-        this.userProfile.name += ' ' + data.lastName;
-        this.userProfile.img = 'kjkj';
-        this.prService.addProfile(this.userProfile).subscribe(
-          value => {
-            this.userProfile = value;
-            console.log('resultat add :', value);
-            this.loadPage = true;
-          }, error => {
-            this.toastr.error('Réessayer Ultérieurement', 'ERREUR');
-          });
-      });
     });
   }
 

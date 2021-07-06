@@ -1,0 +1,50 @@
+<div class="container-fluid px-xl-5" style="margin-bottom: 10%">
+  <div class="container mb-lg-3">
+    <h1 class="mt-5">Mes Missions</h1>
+    <p>Suivez l'avancement de vos projets en toute fluidité.</p>
+    <div class="btn-group  ">
+      <button type="button" class="btn btn-primary" [ngClass]="{'active' : SelctedButton === 'A'}" (click)="loadDemandes()">En cours</button>
+      <button type="button" class="btn btn-primary" [ngClass]="{'active' : SelctedButton === 'B'}" (click)="loadArchived()">Terminé</button>
+    </div>
+    <hr>
+  </div>
+  <div class="container">
+
+    <div class="col-lg-4 offset-lg-4" *ngIf="!loaded">
+      <img src="assets/img/loading.gif" style="width: 100%">
+    </div>
+
+    <div class="card-group justify-content-lg-center" *ngIf="loaded">
+
+
+      <div class="col-lg-6" *ngFor="let d of demandes">
+        <div class="card mb-lg-3" *ngIf="d.mission">
+          <img src="{{d.mission.img}}" *ngIf="d.mission.img != null" style="max-height: 260px" alt="">
+          <ng-container *ngIf="d.mission.img == null" [ngSwitch]="d.mission.typeMission">
+            <img *ngSwitchCase="TypeMission.RECRUTEMENT" style="max-height: 260px" src="assets/img/rec.jpg" >
+            <img *ngSwitchCase="TypeMission.PAYANTE" style="max-height: 260px" src="assets/img/demandés.jpg" >
+            <img *ngSwitchCase="TypeMission.FORMATION" style="max-height: 260px" src="assets/img/missions.jpg" >
+          </ng-container>
+          <div class="card-body">
+            <h5 class="card-title">{{d.mission.title}}</h5>
+            <p class="card-text">{{d.mission.description}}</p>
+            <p class="card-text"><small class="text-muted">{{d.mission.typeMission}}</small></p>
+            <a href="#" class="stretched-link">Voir plus</a>
+          </div>
+          <div class="card-footer bg-transparent">
+            <small class="text-muted">
+              <i class="far fa-calendar-alt"> </i>
+              {{d.mission.startDate | date : 'dd/MM/YYYY'}} -
+              {{d.mission.endDate | date : 'dd/MM/YYYY'}}
+            </small>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</div>

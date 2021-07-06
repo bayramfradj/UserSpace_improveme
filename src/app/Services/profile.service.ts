@@ -18,45 +18,45 @@ export class ProfileService {
     if (userId === undefined) {
       return new Observable<any>();
     }
-    return this.http.get<Profile>(`${environment.BackUrl}/profiles/${userId}`);
+    return this.http.get<Profile>(`${environment.BackUrl}:8082/profiles/${userId}`);
   }
 
   addProfile(profile: Profile): Observable<Profile>
   {
-    return this.http.post<Profile>(`${environment.BackUrl}/profiles/`, profile);
+    return this.http.post<Profile>(`${environment.BackUrl}:8082/profiles/`, profile);
   }
 
   upProfile(profile: Profile): Observable<Profile>
   {
     console.log(profile);
-    return this.http.put<Profile>(`${environment.BackUrl}/profiles/`, profile);
+    return this.http.put<Profile>(`${environment.BackUrl}:8082/profiles/`, profile);
   }
 
   addExperience(experience: Experience, id: bigint): Observable<Experience>
   {
 
-    return this.http.post<Experience>(`${environment.BackUrl}/profiles/experience/${id}`, experience);
+    return this.http.post<Experience>(`${environment.BackUrl}:8082/profiles/experience/${id}`, experience);
   }
 
   addSkillsToProfile(skills: Skills[], id: bigint): Observable<Profile>
   {
-    return this.http.put<Profile>(`${environment.BackUrl}/profiles/skills/${id}`, skills);
+    return this.http.put<Profile>(`${environment.BackUrl}:8082/profiles/skills/${id}`, skills);
   }
 
   RemoveSkillsFromProfile(ids: bigint, idp: bigint): Observable<Profile>
   {
-    return this.http.delete<Profile>(`${environment.BackUrl}/profiles/skills/${idp}/${ids}/`);
+    return this.http.delete<Profile>(`${environment.BackUrl}:8082/profiles/skills/${idp}/${ids}/`);
   }
 
   upExperience(experience: Experience): Observable<Experience>
   {
 
-    return this.http.put<Experience>(`${environment.BackUrl}/profiles/experience/`, experience);
+    return this.http.put<Experience>(`${environment.BackUrl}:8082/profiles/experience/`, experience);
   }
 
   RemoveExperience(id: bigint): Observable<Experience>
   {
 
-    return this.http.delete(`${environment.BackUrl}/profiles/experience/${id}`);
+    return this.http.delete(`${environment.BackUrl}:8082/profiles/experience/${id}`);
   }
 }

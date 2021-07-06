@@ -1,0 +1,3 @@
+export enum StateMission {
+  PENDING= 'PENDING', ACCEPTED = 'ACCEPTED', REJECTED= 'REJECTED', ARCHIVED= 'ARCHIVED'
+}

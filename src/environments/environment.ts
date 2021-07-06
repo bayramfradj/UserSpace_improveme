@@ -17,7 +17,8 @@ export const environment = {
     realm: 'improveMe',
     url: 'http://localhost:8080/auth'
   },
-  BackUrl: 'http://localhost:8082'
+  BackUrl: 'http://localhost',
+  wsServer: 'http://localhost:8085/ws'
 };
 
 /*

@@ -1,0 +1,53 @@
+<div class="container-fluid " style="margin-bottom: 10%">
+  <div class="container">
+    <h1 class="mt-5">Toutes vos Candidatures</h1>
+    <p>This is a sample content.</p>
+  </div>
+  <div class="container">
+    <div id="forms" class="card mb-4  ">
+      <div class="card-body">
+        <div class="col-lg-4 offset-lg-4" *ngIf="!loaded">
+          <img src="assets/img/loading.gif" style="width: 100%">
+        </div>
+        <table class="table table-striped text-center" *ngIf="demandes !== [] && loaded">
+          <thead>
+              <th>Mission</th>
+              <th>Type mission</th>
+              <th>Etat mission</th>
+              <th>Date candidature</th>
+              <th>Etat candidature</th>
+              <th>Action</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let d of demandes">
+            <td *ngIf="d.mission">{{d.mission.title}}</td>
+            <td *ngIf="d.mission">{{d.mission.typeMission}}</td>
+            <td *ngIf="d.mission">
+              <ng-container [ngSwitch]="d.mission.stateMission">
+                <ng-container *ngSwitchCase="StateMission.ARCHIVED">Terminé</ng-container>
+                <ng-container *ngSwitchCase="StateMission.ACCEPTED">En cours</ng-container>
+              </ng-container>
+            </td>
+            <td>{{d.date | date : 'dd/MM/YYYY'}}</td>
+            <td>
+              <ng-container [ngSwitch]="d.stateCandidature">
+                <ng-container *ngSwitchCase="StateCandidature.ACCEPTED">
+                  <span class="badge badge-success">Accepté</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="StateCandidature.REJECTED">
+                  <span class="badge badge-danger">Rejeté</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="StateCandidature.PENDING">
+                  <span class="badge badge-warning text-white">En attente </span>
+                </ng-container>
+              </ng-container>
+            </td>
+            <td></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,6 @@ export class SkillsService {
 
   getAll(): Observable<Skills[]>
   {
-    return this.http.get<Skills[]>(`${environment.BackUrl}/skills/`);
+    return this.http.get<Skills[]>(`${environment.BackUrl}:8082/skills/`);
   }
 }
