@@ -4,7 +4,7 @@ export class Response {
   id?: bigint;
   path?: string;
   userId?: string;
-  UserName?: string;
+  userName?: string;
   groupeId?: bigint;
   submitDate?: string;
   isValidated?: boolean;

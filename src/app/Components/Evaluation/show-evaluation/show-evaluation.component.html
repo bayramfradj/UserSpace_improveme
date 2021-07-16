@@ -1,0 +1,169 @@
+<div class="container-fluid px-xl-5" style="margin-bottom: 10%">
+  <div class="container mt-lg-5">
+    <div class="row">
+      <!-- ============================================================== -->
+      <!-- Form Add  -->
+      <!-- ============================================================== -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+          <h5 class="card-header">Evaluation</h5>
+          <div class="card-body">
+
+            <div class="col-4  offset-4" *ngIf="loader">
+              <img src="assets/img/loading.gif" style="margin-left: 15%">
+            </div>
+
+
+            <div  *ngIf="!loader && evaluation != null ">
+              <h1 class="text-center">{{evaluation.title}}</h1>
+              <h5 class="text-left text-justify">Description : </h5>
+              <p class="text-left text-justify ml-lg-2">
+                <strong>{{evaluation.title}}</strong>
+                est une évaluation de la mission
+                <strong *ngIf="mission$">{{mission$.title }}</strong>
+                ,  du type
+                <strong>{{evaluation.type}}</strong>, planifié pour le
+                <strong>{{evaluation.startDate | date: 'dd/MM/YYYY à HH : mm'}}</strong>
+                jusqu'à
+                <strong>{{evaluation.endDate | date: 'dd/MM/YYYY à HH : mm'}}</strong>.
+              </p>
+              <h5 class="text-left text-justify">Detaille de l'évaluation : </h5>
+              <div  class="text-left text-justify"  [innerHTML]="evaluation.decription"></div>
+              <hr>
+              <h5 class="text-left text-justify" *ngIf="rep"> Réponse : </h5>
+              <div class="card-group justify-content-lg-center" *ngIf="rep">
+
+
+                <div class="col-lg-8">
+                  <div class="card mb-lg-3" >
+                    <ng-container [ngSwitch]="evaluation.typeRes">
+                      <img *ngSwitchCase="TypeRes.IMAGE"  src="{{rep.path}}" >
+                      <audio controls *ngSwitchCase="TypeRes.SOUND" class="align-self-center  mb-lg-3 mt-lg-3"
+                        src="{{rep.path}}">
+                        Your browser does not support the
+                        <code>audio</code> element.
+                      </audio>
+                      <video controls *ngSwitchCase="TypeRes.VIDEO"
+                             src="{{rep.path}}">
+                        Your browser does not support the video tag.
+                      </video>
+                      <a href="{{rep.path}}" *ngSwitchCase="TypeRes.OTHER"
+                         target="_blank" download
+                         class="btn btn-success align-self-center mb-lg-3 mt-lg-3" >
+                        <i class="fa fa-download" aria-hidden="true">Telecharger</i>
+                      </a>
+                    </ng-container>
+                    <div class="card-footer bg-transparent justify-content-lg-between">
+                      <small class="text-muted ">
+                        Ajouté par <b>{{rep.userName}}</b> le
+                        {{rep.submitDate | date: 'dd/MM/YYYY à HH : mm'}}
+                      </small>
+                      <button *ngIf="verifDate(evaluation.endDate)" class="btn btn-outline-danger btn-sm rounded-circle float-lg-right"
+                              data-toggle="modal" data-target="#modalRmRep"
+                      ><i class="fa fa-trash fa-1x"></i> </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal rm rep-->
+                <div class="modal fade" id="modalRmRep" tabindex="-1" role="dialog" aria-labelledby="modalRmskLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalRmskLongTitle">Supprimer Réponse</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          Voulez-vous vraiment supprimer cette réponse ?
+                        </p>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger "
+                                data-dismiss="modal"
+                        >Annuler</button>
+
+                        <button type="button" class="btn btn-danger "
+                                data-dismiss="modal"
+                                (click)="HandleClickRmRep()"
+                        >Supprimer</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+              </div>
+
+
+                <div class="maincontent"  *ngIf="!rep && verifDate(evaluation.endDate)">
+                  <div class="file-upload-wrapper">
+                    <div class="file-upload-wrapper-title">
+                      <h4>Répondre à l'évaluation </h4>
+                      <hr />
+                      <button class="file-upload-wrapper-title__btn" *ngIf="fileName !== '' " (click)="UploadRep()">
+                        Envoyer
+                      </button>
+                    </div>
+                    <div class="box-fileupload" *ngIf="fileName !== ''">
+                    <p class="box-fileupload__lable"><i class="fas fa-file"> {{fileName}} </i>
+                      <span class="ml-2 btn btn-sm btn-danger rounded-circle"
+                            (click)="removeFile()"
+                      >
+                        <i class="fas fa-trash-alt"> </i>
+                      </span>
+                    </p>
+                    </div>
+
+                    <div class="box-fileupload" *ngIf="fileName === ''">
+                      <ng-container [ngSwitch]="evaluation.typeRes">
+                        <input type="file" id="fileId" class="file-upload-input"
+                               name="files" accept="image/*"  (change)="loadFile($event)"
+                               *ngSwitchCase="TypeRes.IMAGE"
+                        >
+                        <input type="file" id="fileId" class="file-upload-input"
+                               name="files" accept="audio/*"  (change)="loadFile($event)"
+                               *ngSwitchCase="TypeRes.SOUND"
+                        >
+                        <input type="file" id="fileId" class="file-upload-input"
+                               name="files" accept="video/*"  (change)="loadFile($event)"
+                               *ngSwitchCase="TypeRes.VIDEO"
+                        >
+                        <input type="file" id="fileId" class="file-upload-input"
+                               name="files" accept="*/*"  (change)="loadFile($event)"
+                               *ngSwitchCase="TypeRes.OTHER"
+                        >
+                      </ng-container>
+
+                      <label for="fileId" class="file-upload-btn"></label>
+                      <p class="box-fileupload__lable">Déposer fichier ici pour télécharger</p>
+                    </div>
+
+                  </div>
+                </div>
+
+              <h5 class="text-left text-justify" *ngIf="!rep && !verifDate(evaluation.endDate)"> Réponse : </h5>
+              <h6 class="text-left text-justify text-danger " *ngIf="!rep && !verifDate(evaluation.endDate)">
+                Votre groupe n'a pas répondu à cette évaluation
+              </h6>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- end form add  -->
+      <!-- ============================================================== -->
+    </div>
+  </div>
+</div>

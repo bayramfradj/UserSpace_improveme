@@ -1,0 +1,24 @@
+<div class="container-fluid px-xl-5" style="margin-bottom: 10%">
+  <div class="container mb-lg-3" *ngIf="loaded">
+    <h1 class="mt-5">{{mission.title}}</h1>
+    <p>{{mission.description}}</p>
+    <hr>
+    <h5 class="text-left text-justify font-weight-bold" *ngIf="groupe" >Équipe de travail : </h5>
+    <p class="text-left text-justify ml-2" *ngIf="groupe"> Votre équipe est {{groupe.name}} :</p>
+    <ul *ngIf="groupe" class="">
+      <li *ngFor="let m of groupe.membres">{{m.userName}}</li>
+    </ul>
+    <a [routerLink]="['/Chat']" class="btn btn-outline-primary">Communiquer avec votre équipe</a>
+    <hr>
+  </div>
+  <div class="container">
+
+    <div class="col-lg-4 offset-lg-4" *ngIf="!loaded">
+      <img src="assets/img/loading.gif" style="width: 100%">
+    </div>
+    <h5 class="text-left text-justify font-weight-bold" *ngIf="loaded" >Calendrier d'évaluations : </h5>
+    <full-calendar [options]="calendarOptions" *ngIf="loaded" ></full-calendar>
+
+
+  </div>
+</div>

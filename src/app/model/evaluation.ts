@@ -6,8 +6,10 @@ export class Evaluation {
   title?: string;
   type?: TypeEval;
   missionId?: bigint;
-  startDate?: string;
-  endDate?: string;
+  // @ts-ignore
+  startDate: string;
+  // @ts-ignore
+  endDate: string;
   decription?: string;
   typeRes?: TypeRes;
   responses?: Response[];

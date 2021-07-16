@@ -14,49 +14,15 @@ export class EvaluationService {
 
   constructor(private http: HttpClient) {}
 
-  public AddGroup(group: Groupe): Observable<Groupe>
-  {
-    return this.http.post<Groupe>(`${environment.BackUrl}:8084/Groupes/`, group);
-  }
-
-  public UpGroup(group: Groupe): Observable<Groupe>
-  {
-    return this.http.put<Groupe>(`${environment.BackUrl}:8084/Groupes/`, group);
-  }
-
-  public ArchiveGroup(groupe: Groupe): Observable<Groupe>
-  {
-    return this.http.put<Groupe>(`${environment.BackUrl}:8084/Groupes/${groupe.id}`, null);
-  }
-
-  public AddMemberToGroup(groupeId: bigint, m: Membre): Observable<Membre>
-  {
-    return this.http.post<Membre>(`${environment.BackUrl}:8084/Groupes/${groupeId}/Members/`, m);
-  }
-
-  public DeleteMember(membreId: bigint): Observable<boolean>
-  {
-    return this.http.delete<boolean>(`${environment.BackUrl}:8084/Groupes/Members/${membreId}`);
-  }
 
   public AllByUserId(userId: string): Observable<Groupe[]>
   {
     return this.http.get<Groupe[]>(`${environment.BackUrl}:8084/Groupes/ByUser/${userId}`);
   }
 
-  public AddEvalution(evaluation: Evaluation): Observable<Evaluation>
+  public AllByUserIdAndMission(userId: string | undefined, missionId: bigint): Observable<Groupe>
   {
-    return this.http.post<Evaluation>(`${environment.BackUrl}:8084/Evaluation/`, evaluation);
-  }
-
-  public UpEvalution(evaluation: Evaluation): Observable<Evaluation>
-  {
-    return this.http.put<Groupe>(`${environment.BackUrl}:8084/Evaluation/`, evaluation);
-  }
-
-  public RemoveEvalution(evaluation_id: bigint): Observable<boolean>
-  {
-    return this.http.delete<boolean>(`${environment.BackUrl}:8084/Evaluation/${evaluation_id}`);
+    return this.http.get<Groupe>(`${environment.BackUrl}:8084/Groupes/Mission/ByUser/${userId}/${missionId}`);
   }
 
   public GetEvalutionById(evaluation_id: bigint): Observable<Evaluation>
@@ -64,14 +30,15 @@ export class EvaluationService {
     return this.http.get<Evaluation>(`${environment.BackUrl}:8084/Evaluation/${evaluation_id}`);
   }
 
-  public GetEvalutionByMissionId(evaluation_id: bigint): Observable<Evaluation[]>
+  public GetEvalutionByMissionId(missionId: bigint): Observable<Evaluation[]>
   {
-    return this.http.get<Evaluation[]>(`${environment.BackUrl}:8084/Evaluation/Mission/${evaluation_id}`);
+    return this.http.get<Evaluation[]>(`${environment.BackUrl}:8084/Evaluation/Mission/${missionId}`);
+
   }
 
-  public AddResponse(response: Response): Observable<Response>
+  public AddResponse(response: Response, evalId: bigint): Observable<Response>
   {
-    return this.http.post<Groupe>(`${environment.BackUrl}:8084/Evaluation/Response/`, response);
+    return this.http.post<Groupe>(`${environment.BackUrl}:8084/Evaluation/Response/${evalId}`, response);
   }
 
   public UpResponse(response: Response): Observable<Response>
@@ -91,7 +58,7 @@ export class EvaluationService {
 
   public GetResponseByGroupeIdAndEval(groupeId: bigint, evalId: bigint): Observable<Response>
   {
-    return this.http.delete<Response>(`${environment.BackUrl}:8084/Evaluation/Response/Groupe/${groupeId}/${evalId}`);
+    return this.http.get<Response>(`${environment.BackUrl}:8084/Evaluation/Response/Groupe/${groupeId}/${evalId}`);
   }
 
 

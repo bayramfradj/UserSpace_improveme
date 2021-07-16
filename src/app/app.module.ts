@@ -20,6 +20,19 @@ import {FormsModule} from '@angular/forms';
 import { AllByUserComponent } from './Components/Mission/all-by-user/all-by-user.component';
 import { AllCandidaturesByUserComponent } from './Components/Mission/all-candidatures-by-user/all-candidatures-by-user.component';
 import { ChatComponent } from './Components/chat/chat.component';
+import {FullCalendarModule} from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import timeGridWeek from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import {ShowMissionComponent} from './Components/Mission/show-mission/show-mission.component';
+import { AllEvaluationComponent } from './Components/Evaluation/all-evaluation/all-evaluation.component';
+import { ShowEvaluationComponent } from './Components/Evaluation/show-evaluation/show-evaluation.component';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  timeGridWeek,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -30,7 +43,10 @@ import { ChatComponent } from './Components/chat/chat.component';
     ProfileComponent,
     AllByUserComponent,
     AllCandidaturesByUserComponent,
-    ChatComponent
+    ChatComponent,
+    ShowMissionComponent,
+    AllEvaluationComponent,
+    ShowEvaluationComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +57,7 @@ import { ChatComponent } from './Components/chat/chat.component';
     AngularFireModule.initializeApp(environment.configFrireStore),
     AngularFireStorageModule,
     BrowserAnimationsModule,
+    FullCalendarModule,
     ToastrModule.forRoot({ timeOut: 4000,
                                   progressAnimation: 'decreasing',
                                   progressBar: true})

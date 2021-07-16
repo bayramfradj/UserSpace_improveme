@@ -1,0 +1,41 @@
+<div class="container-fluid px-xl-5" style="margin-bottom: 10%">
+  <div class="container mt-lg-5">
+
+    <div class="col-lg-4 offset-lg-4" *ngIf="!loaded">
+      <img src="assets/img/loading.gif" style="width: 100%">
+    </div>
+
+    <div class="row align-items-center" *ngIf="loaded">
+      <div class="col-lg-6 order-lg-last">
+        <div class="image " *ngIf="mission.img != null" >
+          <img  src="{{mission.img}}" style="max-height: 450px; width: available" alt="{{mission.title}}">
+        </div>
+        <div class="image " *ngIf="mission.img == null" [ngSwitch]="mission.typeMission">
+          <img *ngSwitchCase="TypeMission.RECRUTEMENT"  src="assets/img/rec.jpg" style="max-height: 450px; width: 400px" alt="about">
+          <img *ngSwitchCase="TypeMission.PAYANTE" src="assets/img/demandés.jpg" style="max-height: 450px; width: 400px" alt="about">
+          <img *ngSwitchCase="TypeMission.FORMATION" class="mt-30" src="assets/img/missions.jpg" style="max-height: 450px; width: 400px" alt="about">
+        </div>
+      </div>
+      <div class="col-lg-6 order-lg-first">
+        <div class="about-content">
+
+          <h5 class="sub-title mt-20">{{mission.entrepriseName}}</h5>
+          <h3 class="about-title mt-15">{{mission.title}}</h3>
+          <p class="text-muted mt-15"><i class="lni-calendar"></i> {{  mission.startDate   | date: 'dd/MM/yyyy'}}   |   {{  mission.endDate | date: 'dd/MM/yyyy'}}</p>
+          <p class="text mt-20">{{mission.description}}</p>
+          <br>
+          <a [routerLink]="['/Mission/Evaluation/', mission.id]" class="btn btn-outline-primary ">Suivez les évaluations</a>
+
+          <hr>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center" *ngIf="loaded">
+      <div class="col-lg-12" [innerHTML]="mission.content">
+      </div>
+    </div>
+
+  </div>
+</div>
